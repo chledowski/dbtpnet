@@ -1,0 +1,27 @@
+defaults:
+    - _self_
+    - base_config
+
+hydra:
+  job:
+    chdir: True
+
+dataset:
+  dbt_sample_path: "../../../samples/dbt_sample.npy"
+  normalization_mean: 212.8
+  normalization_std: 184.7
+  shape: [1536, 1024]
+
+model_3d:
+  pretrained_path: "../../../samples/dbtpnet_cnv.ckpt"
+  first_3d_layer_kernel_size: [3, 5, 5]
+  first_3d_layer_conv_stride: [3, 1, 1]
+  rest_3d_layer_kernel_size: [3, 3, 3]
+  rest_3d_layer_conv_stride: [2, 1, 1]
+  apply_stride_every_second_cnn: False
+  num_3d_channels_list: [6, 12, 24, 48, 96]
+  norm_class: group
+  num_groups: 6
+  output_transform: standardize
+  residual_connections: False
+  pooling: max
